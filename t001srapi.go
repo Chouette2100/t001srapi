@@ -46,6 +46,7 @@ type Config struct {
 	$ ./t000srapi config.yml
 
 	v0.0.0
+	v0.1.0 sort.Sort()をsort.Slice()に変更する。
 */
 func main() {
 
@@ -125,7 +126,9 @@ func main() {
 	}
 
 	//	ルームを配信開始時刻の降順にソートする
-	sort.Sort(*roomlive)
+	sort.Slice(*roomlive, func(i, j int) bool {
+        return (*roomlive)[i].Started_at > (*roomlive)[j].Started_at
+    })
 
 	log.Printf("\n")
 	log.Printf("　*** 指定したジャンルのルーム一覧（ソート後）\n")
